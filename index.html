@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Liosmarduque Arquitetura</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f5f3;--ink:#5f5a56;--soft:#8d8782;--line:#d9d6d2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1f1e1c;--ink:#d8d4cf;--soft:#a09a94;--line:#3a3835}}
+:root[data-theme="dark"]{--bg:#1f1e1c;--ink:#d8d4cf;--soft:#a09a94;--line:#3a3835}
+html{scroll-behavior:smooth;scroll-padding-top:calc(70px + env(safe-area-inset-top,0px))}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Jost,'Helvetica Neue',Arial,sans-serif;font-weight:300;line-height:1.8;letter-spacing:.02em}
+
+/* logo desfocada fixa no fundo */
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
+#bg img{height:78vh;max-width:90vw;object-fit:contain;filter:blur(5px);opacity:.14}
+
+header{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:calc(18px + env(safe-area-inset-top,0px)) 5vw 18px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(8px)}
+.brand{font-weight:300;letter-spacing:.32em;font-size:.82rem;text-decoration:none;color:var(--ink);text-transform:lowercase}
+nav{display:flex;gap:2rem;align-items:center}
+nav a{color:var(--ink);text-decoration:none;font-size:.85rem;letter-spacing:.14em}
+nav a:hover{color:var(--soft)}
+main{position:relative;z-index:1}
+section{padding:9rem 8vw;max-width:1100px;margin:0 auto}
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+h1{font-weight:200;font-size:clamp(2rem,6vw,4.4rem);letter-spacing:.22em;margin:0;line-height:1.25;text-transform:lowercase}
+.hero p{max-width:34rem;color:var(--soft);margin:2rem 0 2.6rem;font-size:1.05rem}
+.btn{display:inline-block;padding:1rem 2.6rem;border:1px solid var(--ink);color:var(--ink);text-decoration:none;font-size:.85rem;letter-spacing:.2em;transition:background .25s,color .25s}
+.btn:hover,.btn:focus-visible{background:var(--ink);color:var(--bg);outline:none}
+h2{font-weight:200;font-size:clamp(1.5rem,3.4vw,2.3rem);letter-spacing:.2em;margin:0 0 2.5rem;text-transform:lowercase}
+.two{display:grid;grid-template-columns:1fr 2fr;gap:3rem}
+.two p{margin:0 0 1.4rem;max-width:44rem}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;border-top:1px solid var(--line);padding-top:2rem}
+h3{font-weight:400;font-size:.9rem;letter-spacing:.2em;margin:0 0 1rem}
+ul{list-style:none;margin:0;padding:0}li{margin-bottom:.4rem}
+.quote{font-size:clamp(1.3rem,2.6vw,1.9rem);font-weight:200;line-height:1.6;margin-top:2rem}
+footer{position:relative;z-index:1;text-align:center;padding:2rem;color:var(--soft);font-size:.8rem;border-top:1px solid var(--line)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+
+/* portfólio + zoom */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;align-items:end}
+figure{margin:0}
+.ph{display:block;width:100%;aspect-ratio:3/4;padding:0;border:0;background:var(--line);cursor:zoom-in;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.ph:hover img{transform:scale(1.04)}
+figcaption{margin-top:.9rem;font-size:.85rem;letter-spacing:.14em}
+#lb{position:fixed;inset:0;z-index:20;background:rgba(20,19,18,.92);display:none;align-items:center;justify-content:center;flex-direction:column;cursor:zoom-out;padding:4vh 4vw}
+#lb.on{display:flex}
+#lb img{max-width:100%;max-height:82vh;object-fit:contain;transition:transform .3s}
+#lb img.z{transform:scale(1.8);cursor:zoom-out}
+#lb p{color:#eee;margin:1rem 0 0;letter-spacing:.14em;font-size:.9rem}
+#lb .x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:20px;color:#eee;font-size:2rem;background:none;border:0;cursor:pointer}
+
+@media(max-width:760px){nav a.h{display:none}.two,.cols,.grid{grid-template-columns:1fr}section{padding:6rem 7vw}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style></head>
+<body>
+
+<div id="bg" aria-hidden="true"><img alt="" src="logo.png"></div>
+
+<header>
+  <a class="brand" href="#inicio">liosmarduque arquitetura</a>
+  <nav>
+    <a class="h" href="#portfolio">portfólio</a>
+    <a class="h" href="#quem-somos">quem somos</a>
+    <a class="h" href="#areas">atuação</a>
+    <a class="h" href="#contato">contato</a>
+    <a href="https://wa.me/554198853867?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20um%20or%C3%A7amento." target="_blank" rel="noopener">orçamento</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <h1>liosmarduque<br>arquitetura</h1>
+  <p>Espaços que expressem personalidade, transmitam conforto e proporcionem bem-estar em cada detalhe.</p>
+  <a class="btn" href="https://wa.me/554198853867?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20um%20or%C3%A7amento." target="_blank" rel="noopener">SOLICITAR ORÇAMENTO</a>
+</section>
+
+<section id="portfolio">
+  <h2>portfólio</h2>
+  <div class="grid">
+    <figure><button type="button" class="ph" aria-label="Ampliar Apartamento EP"><img alt="Apartamento EP" src="apartamento-ep.jpg"></button><figcaption>Apartamento EP</figcaption></figure>
+    <figure><button type="button" class="ph" aria-label="Ampliar Projeto Living LV"><img alt="Projeto Living LV" src="living-lv.jpg"></button><figcaption>Projeto Living LV</figcaption></figure>
+    <figure><button type="button" class="ph" aria-label="Ampliar Área Gourmet FF"><img alt="Área Gourmet FF" src="area-gourmet-ff.jpg"></button><figcaption>Área Gourmet FF</figcaption></figure>
+  </div>
+</section>
+
+<section id="quem-somos"><div class="two"><h2>quem somos</h2><div>
+  <p>Criado em agosto de 2020, nosso escritório tem como propósito colocar cada cliente no centro de seus projetos, compreendendo suas necessidades, preferências e expectativas.</p>
+  <p>Acreditamos que cada projeto possui sua própria identidade e, por isso, desenvolvemos soluções personalizadas que unem estética, funcionalidade e qualidade, sempre respeitando o perfil e o orçamento de cada cliente.</p>
+  <p>Nosso trabalho busca equilibrar funcionalidade, conforto, sustentabilidade e inovação, criando ambientes únicos, eficientes e cuidadosamente planejados. Acreditamos que a arquitetura possui um papel importante na qualidade de vida e no bem-estar das pessoas.</p>
+</div></div></section>
+
+<section id="areas"><h2>áreas de atuação</h2><div class="cols">
+  <div><h3>Projetos</h3><ul><li>Arquitetura</li><li>Interiores</li><li>Reformas</li></ul></div>
+  <div><h3>Segmentos</h3><ul><li>Residencial</li><li>Comercial</li><li>Corporativo</li></ul></div>
+  <div><h3>Atendimento</h3><ul><li>Curitiba/PR — presencial</li><li>Curitiba e região — atendimento à distância</li></ul></div>
+</div></section>
+
+<section id="proposito"><h2>nosso propósito</h2>
+  <p style="max-width:44rem">Criar espaços que expressem personalidade, transmitam conforto e proporcionem bem-estar em cada detalhe.</p>
+  <p style="max-width:44rem">Transformamos ideias e necessidades em projetos únicos, pensados para refletir o estilo de vida de cada cliente.</p>
+  <p class="quote">Arquitetura é mais do que criar espaços. É transformar ambientes em experiências.</p>
+</section>
+
+<section id="contato"><div class="two"><h2>contato</h2><div>
+  <h3>Telefone</h3><p>+55 41 9 9945-9011</p>
+  <h3>Horário de atendimento</h3><p>Segunda a sexta-feira<br>9h às 18h</p>
+  <h3>Endereço</h3><p>Casa de Pedra — Nex Coworking<br>Alameda Presidente Taunay, 130 — Curitiba/PR</p>
+  <p style="margin-top:2.5rem"><a class="btn" href="https://wa.me/554198853867?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20um%20or%C3%A7amento." target="_blank" rel="noopener">SOLICITAR ORÇAMENTO</a></p>
+</div></div></section>
+</main>
+
+<footer>© 2026 Liosmarduque Arquitetura</footer>
+
+<div id="lb" role="dialog" aria-label="Foto ampliada">
+  <button class="x" type="button" aria-label="Fechar">×</button><img alt=""><p></p>
+</div>
+
+<script>
+const lb=document.getElementById('lb'),li=lb.querySelector('img'),lp=lb.querySelector('p');
+document.querySelectorAll('.ph').forEach(b=>b.addEventListener('click',()=>{
+  const i=b.querySelector('img');
+  li.src=i.src;li.alt=i.alt;lp.textContent=i.alt;
+  li.classList.remove('z');lb.classList.add('on');
+}));
+li.addEventListener('click',e=>{e.stopPropagation();li.classList.toggle('z')});
+lb.addEventListener('click',()=>lb.classList.remove('on'));
+addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+</script>
+</body></html>
